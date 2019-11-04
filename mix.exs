@@ -37,7 +37,8 @@ defmodule ElixirMicroserviceBoilerplate.MixProject do
       {:sentry, "~> 7.0"},
       {:lager_humio_backend, "~> 1.2"},
       {:lager, "~>  3.8", override: true},
-      {:appsignal, "~> 1.11"}
+      {:appsignal, "~> 1.11"},
+      {:credo, "~> 1.1", only: [:dev, :test], runtime: false}
     ]
   end
 
