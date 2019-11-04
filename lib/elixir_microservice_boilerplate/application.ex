@@ -2,6 +2,14 @@ defmodule ElixirMicroserviceBoilerplate.Application do
   use Application
 
   def start(_type, _args) do
+    :ok =
+      :telemetry.attach(
+        "appsignal-ecto",
+        [:elixir_microservice_boilerplate, :repo, :query],
+        &Appsignal.Ecto.handle_event/4,
+        nil
+      )
+
     children = [
       ElixirMicroserviceBoilerplate.Repo,
       ElixirMicroserviceBoilerplateWeb.Endpoint

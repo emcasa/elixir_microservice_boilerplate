@@ -7,7 +7,8 @@ config :elixir_microservice_boilerplate, ElixirMicroserviceBoilerplateWeb.Endpoi
   url: [host: "localhost"],
   secret_key_base: "SqLQd50vJ16vqvtjAu4NEt7FKXK7igfHcSBMo9766mjAdbHeUmtIsjHksaUjTYDm",
   render_errors: [view: ElixirMicroserviceBoilerplateWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: ElixirMicroserviceBoilerplate.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: ElixirMicroserviceBoilerplate.PubSub, adapter: Phoenix.PubSub.PG2],
+  instrumenters: [Appsignal.Phoenix.Instrumenter]
 
 config :logger, :console,
 	backends: [:console],
@@ -28,5 +29,10 @@ config :lager,
       level: :debug
     ]
   ]
+
+config :appsignal, :config,
+  active: false,
+  name: "elixir_microservice_boilerplate",
+  env: Mix.env()
 
 import_config "#{Mix.env()}.exs"

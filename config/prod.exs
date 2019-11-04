@@ -26,4 +26,9 @@ config :lager,
     ]
   ]
 
+config :appsignal, :config,
+  active: true,
+  env: System.get_env("APPSIGNAL_APP_ENV"),
+  push_api_key: System.get_env("APPSIGNAL_PUSH_API_KEY")
+
 import_config "prod.secret.exs"
