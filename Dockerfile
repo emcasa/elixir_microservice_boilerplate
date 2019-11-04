@@ -15,7 +15,7 @@ RUN mix local.hex --force \
     && mix local.rebar --force
 
 # app set workdir
-WORKDIR /opt/emcasa/elixir_microservice_boilerplate
+WORKDIR /opt/emcasa/boilerplate
 
 # app install deps
 COPY mix.exs mix.exs
@@ -23,7 +23,7 @@ COPY mix.lock mix.lock
 RUN mix deps.get
 
 # app copy code
-COPY . /opt/emcasa/elixir_microservice_boilerplate
+COPY . /opt/emcasa/boilerplate
 RUN mix compile
 
 # app expose server port
