@@ -39,7 +39,8 @@ defmodule MyNewApp.MixProject do
       {:lager, "~>  3.8", override: true},
       {:appsignal, "~> 1.11"},
       {:credo, "~> 1.1", only: [:dev, :test], runtime: false},
-      {:ex_machina, "~> 2.3", only: :test}
+      {:ex_machina, "~> 2.3", only: :test},
+      {:excoveralls, "~> 0.12.0"}
     ]
   end
 
