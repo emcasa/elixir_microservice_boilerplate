@@ -1,13 +1,13 @@
 use Mix.Config
 
-config :elixir_microservice_boilerplate,
-  ecto_repos: [ElixirMicroserviceBoilerplate.Repo]
+config :boilerplate,
+  ecto_repos: [Boilerplate.Repo]
 
-config :elixir_microservice_boilerplate, ElixirMicroserviceBoilerplateWeb.Endpoint,
+config :boilerplate, BoilerplateWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "SqLQd50vJ16vqvtjAu4NEt7FKXK7igfHcSBMo9766mjAdbHeUmtIsjHksaUjTYDm",
-  render_errors: [view: ElixirMicroserviceBoilerplateWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: ElixirMicroserviceBoilerplate.PubSub, adapter: Phoenix.PubSub.PG2],
+  render_errors: [view: BoilerplateWeb.ErrorView, accepts: ~w(json)],
+  pubsub: [name: Boilerplate.PubSub, adapter: Phoenix.PubSub.PG2],
   instrumenters: [Appsignal.Phoenix.Instrumenter]
 
 config :logger, :console,
@@ -31,7 +31,7 @@ config :lager,
 
 config :appsignal, :config,
   active: false,
-  name: "elixir_microservice_boilerplate",
+  name: "boilerplate",
   env: Mix.env()
 
 import_config "#{Mix.env()}.exs"

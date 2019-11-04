@@ -1,4 +1,4 @@
-defmodule ElixirMicroserviceBoilerplate.DataCase do
+defmodule Boilerplate.DataCase do
   @moduledoc false
   use ExUnit.CaseTemplate
 
@@ -6,20 +6,20 @@ defmodule ElixirMicroserviceBoilerplate.DataCase do
 
   using do
     quote do
-      alias ElixirMicroserviceBoilerplate.Repo
+      alias Boilerplate.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import ElixirMicroserviceBoilerplate.DataCase
+      import Boilerplate.DataCase
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(ElixirMicroserviceBoilerplate.Repo)
+    :ok = Sandbox.checkout(Boilerplate.Repo)
 
     unless tags[:async] do
-      Sandbox.mode(ElixirMicroserviceBoilerplate.Repo, {:shared, self()})
+      Sandbox.mode(Boilerplate.Repo, {:shared, self()})
     end
 
     :ok

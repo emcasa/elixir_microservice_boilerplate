@@ -1,6 +1,6 @@
 use Mix.Config
 
-config :elixir_microservice_boilerplate, ElixirMicroserviceBoilerplateWeb.Endpoint,
+config :boilerplate, BoilerplateWeb.Endpoint,
   url: [host: "example.com", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
@@ -11,7 +11,7 @@ config :logger,
   utc_log: true
 
 config :sentry,
-  filter: ElixirMicroserviceBoilerplateWeb.SentryEventFilter,
+  filter: BoilerplateWeb.SentryEventFilter,
   dsn: System.get_env("SENTRY_DSN")
 
 config :lager,

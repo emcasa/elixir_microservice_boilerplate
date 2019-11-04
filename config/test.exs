@@ -1,13 +1,13 @@
 use Mix.Config
 
-config :elixir_microservice_boilerplate, ElixirMicroserviceBoilerplate.Repo,
+config :boilerplate, Boilerplate.Repo,
   username: "postgres",
   password: "postgres",
-  database: "elixir_microservice_boilerplate_test",
+  database: "boilerplate_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
-config :elixir_microservice_boilerplate, ElixirMicroserviceBoilerplateWeb.Endpoint,
+config :boilerplate, BoilerplateWeb.Endpoint,
   http: [port: 4002],
   server: false
 

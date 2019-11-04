@@ -1,3 +1,3 @@
-defmodule ElixirMicroserviceBoilerplate.Factory do
-  use ExMachina.Ecto, repo: ElixirMicroserviceBoilerplate.Repo
+defmodule Boilerplate.Factory do
+  use ExMachina.Ecto, repo: Boilerplate.Repo
 end

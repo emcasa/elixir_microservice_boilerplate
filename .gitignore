@@ -12,7 +12,7 @@ erl_crash.dump
 
 *.ez
 
-elixir_microservice_boilerplate-*.tar
+boilerplate-*.tar
 
 /priv/static/
 /tmp/

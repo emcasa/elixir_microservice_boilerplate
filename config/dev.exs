@@ -1,10 +1,10 @@
 use Mix.Config
 
 # Configure your database
-config :elixir_microservice_boilerplate, ElixirMicroserviceBoilerplate.Repo,
+config :boilerplate, Boilerplate.Repo,
   username: "postgres",
   password: "postgres",
-  database: "elixir_microservice_boilerplate_dev",
+  database: "boilerplate_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -15,7 +15,7 @@ config :elixir_microservice_boilerplate, ElixirMicroserviceBoilerplate.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :elixir_microservice_boilerplate, ElixirMicroserviceBoilerplateWeb.Endpoint,
+config :boilerplate, BoilerplateWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
