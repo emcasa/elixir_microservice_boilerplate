@@ -56,9 +56,9 @@ jobs:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
-      - run: mix compile --warnings-as-errors, coveralls.json
+      - run: mix do compile --warnings-as-errors, coveralls.json
 
-      - run: bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+      - run: curl -s https://codecov.io/bash | bash
 
       - store_test_results:
-          path: _build/test/lib/elixir_microservice_boilerplate/
+          path: _build/test/lib/
