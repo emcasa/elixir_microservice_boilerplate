@@ -24,4 +24,4 @@ It's intented to be a template rather than for forking.
 
   - `mix ecto.setup`
   - `iex -S mix phx.server`
-  - Check [`localhost:4000`](http://localhost:4000)
+  - Check [`localhost:4001`](http://localhost:4001)

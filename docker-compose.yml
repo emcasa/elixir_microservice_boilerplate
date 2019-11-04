@@ -1,0 +1,45 @@
+---
+version: '3'
+services:
+  db:
+    image: 'postgres:11.2-alpine'
+    hostname: &pg_hostname db
+    volumes:
+      - './priv/docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql'
+      - './priv/docker/postgres/dump:/opt/dump'
+      - 'db_data:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_USER: &pg_username postgres
+      POSTGRES_PASSWORD: &pg_password postgres
+    ports:
+      - '5432:5432'
+  boilerplate:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      args:
+        VCS_REF: ${VCS_REF:-by-docker-compose}
+        BUILD_DATE: ${BUILD_DATE:-1978-12-15T03:00:00Z}
+    networks:
+      reverse:
+        aliases:
+          - boilerplate
+      default:
+        aliases:
+          - boilerplate
+    depends_on:
+      - db
+    ports:
+      - '4001:4001'
+    volumes:
+      - .:/boilerplate
+    environment:
+      ENV: development
+      ERF_AFLASG: '-kernel shell_history enabled'
+      POSTGRES_USERNAME: *pg_username
+      POSTGRES_PASSWORD: *pg_password
+      POSTGRES_HOSTNAME: *pg_hostname
+volumes:
+  db_data: {}
+networks:
+  reverse: {}
