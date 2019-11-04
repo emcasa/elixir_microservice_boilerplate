@@ -20,7 +20,7 @@ defmodule ElixirMicroserviceBoilerplate.MixProject do
   def application do
     [
       mod: {ElixirMicroserviceBoilerplate.Application, []},
-      extra_applications: [:logger, :runtime_tools, :sentry]
+      extra_applications: [:lager, :runtime_tools, :sentry]
     ]
   end
 
@@ -42,6 +42,8 @@ defmodule ElixirMicroserviceBoilerplate.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:sentry, "~> 7.0"},
+      {:lager_humio_backend, "~> 1.2"},
+      {:lager, "~>  3.8", override: true},
     ]
   end
 

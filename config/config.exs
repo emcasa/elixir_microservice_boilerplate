@@ -19,8 +19,10 @@ config :elixir_microservice_boilerplate, ElixirMicroserviceBoilerplateWeb.Endpoi
 
 # Configures Elixir's Logger
 config :logger, :console,
+	backends: [:console],
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
@@ -28,6 +30,14 @@ config :phoenix, :json_library, Jason
 config :sentry,
   included_environments: ~w(production staging),
   environment_name: System.get_env("ENV") || "development"
+
+config :lager,
+  log_root: 'tmp',
+  handlers: [
+    lager_console_backend: [
+      level: :debug
+    ]
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
