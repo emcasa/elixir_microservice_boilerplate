@@ -1,4 +1,4 @@
-defmodule ElixirMicroserviceBoilerplate.Application do
+defmodule MyNewApp.Application do
   @moduledoc false
   use Application
 
@@ -6,22 +6,22 @@ defmodule ElixirMicroserviceBoilerplate.Application do
     :ok =
       :telemetry.attach(
         "appsignal-ecto",
-        [:elixir_microservice_boilerplate, :repo, :query],
+        [:my_new_app, :repo, :query],
         &Appsignal.Ecto.handle_event/4,
         nil
       )
 
     children = [
-      ElixirMicroserviceBoilerplate.Repo,
-      ElixirMicroserviceBoilerplateWeb.Endpoint
+      MyNewApp.Repo,
+      MyNewAppWeb.Endpoint
     ]
 
-    opts = [strategy: :one_for_one, name: ElixirMicroserviceBoilerplate.Supervisor]
+    opts = [strategy: :one_for_one, name: MyNewApp.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
   def config_change(changed, _new, removed) do
-    ElixirMicroserviceBoilerplateWeb.Endpoint.config_change(changed, removed)
+    MyNewAppWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

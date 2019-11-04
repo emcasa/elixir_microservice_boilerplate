@@ -1,26 +1,26 @@
-defmodule ElixirMicroserviceBoilerplateWeb do
+defmodule MyNewAppWeb do
   @moduledoc false
   def controller do
     quote do
-      use Phoenix.Controller, namespace: ElixirMicroserviceBoilerplateWeb
+      use Phoenix.Controller, namespace: MyNewAppWeb
 
       import Plug.Conn
-      import ElixirMicroserviceBoilerplateWeb.Gettext
-      alias ElixirMicroserviceBoilerplateWeb.Router.Helpers, as: Routes
+      import MyNewAppWeb.Gettext
+      alias MyNewAppWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/elixir_microservice_boilerplate_web/templates",
-        namespace: ElixirMicroserviceBoilerplateWeb
+        root: "lib/my_new_app_web/templates",
+        namespace: MyNewAppWeb
 
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
-      import ElixirMicroserviceBoilerplateWeb.ErrorHelpers
-      import ElixirMicroserviceBoilerplateWeb.Gettext
-      alias ElixirMicroserviceBoilerplateWeb.Router.Helpers, as: Routes
+      import MyNewAppWeb.ErrorHelpers
+      import MyNewAppWeb.Gettext
+      alias MyNewAppWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -35,7 +35,7 @@ defmodule ElixirMicroserviceBoilerplateWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import ElixirMicroserviceBoilerplateWeb.Gettext
+      import MyNewAppWeb.Gettext
     end
   end
 

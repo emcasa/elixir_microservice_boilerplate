@@ -1,3 +1,3 @@
-defmodule ElixirMicroserviceBoilerplate do
+defmodule MyNewApp do
   @moduledoc false
 end

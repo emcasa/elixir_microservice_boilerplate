@@ -9,7 +9,7 @@ jobs:
       - image: circleci/postgres:11.2
         environment:
           POSTGRES_USER: postgres
-          POSTGRES_DB: elixir_microservice_boilerplate_test
+          POSTGRES_DB: my_new_app_test
           POSTGRES_PASSWORD:
 
     working_directory: ~/app
@@ -61,4 +61,4 @@ jobs:
       - run: bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
 
       - store_test_results:
-          path: _build/test/lib/elixir_microservice_boilerplate/
+          path: _build/test/lib/my_new_app/

@@ -1,15 +1,15 @@
-defmodule ElixirMicroserviceBoilerplateWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :elixir_microservice_boilerplate
+defmodule MyNewAppWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :my_new_app
   use Sentry.Phoenix.Endpoint
   use Appsignal.Phoenix
 
-  socket "/socket", ElixirMicroserviceBoilerplateWeb.UserSocket,
+  socket "/socket", MyNewAppWeb.UserSocket,
     websocket: true,
     longpoll: false
 
   plug Plug.Static,
     at: "/",
-    from: :elixir_microservice_boilerplate,
+    from: :my_new_app,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
@@ -30,8 +30,8 @@ defmodule ElixirMicroserviceBoilerplateWeb.Endpoint do
 
   plug Plug.Session,
     store: :cookie,
-    key: "_elixir_microservice_boilerplate_key",
+    key: "_my_new_app_key",
     signing_salt: "v0qo5hfH"
 
-  plug ElixirMicroserviceBoilerplateWeb.Router
+  plug MyNewAppWeb.Router
 end

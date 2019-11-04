@@ -1,4 +1,4 @@
-defmodule ElixirMicroserviceBoilerplateWeb.ConnCase do
+defmodule MyNewAppWeb.ConnCase do
   @moduledoc false
   use ExUnit.CaseTemplate
 
@@ -7,17 +7,17 @@ defmodule ElixirMicroserviceBoilerplateWeb.ConnCase do
   using do
     quote do
       use Phoenix.ConnTest
-      alias ElixirMicroserviceBoilerplateWeb.Router.Helpers, as: Routes
+      alias MyNewAppWeb.Router.Helpers, as: Routes
 
-      @endpoint ElixirMicroserviceBoilerplateWeb.Endpoint
+      @endpoint MyNewAppWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(ElixirMicroserviceBoilerplate.Repo)
+    :ok = Sandbox.checkout(MyNewApp.Repo)
 
     unless tags[:async] do
-      Sandbox.mode(ElixirMicroserviceBoilerplate.Repo, {:shared, self()})
+      Sandbox.mode(MyNewApp.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}

@@ -1,4 +1,4 @@
-defmodule ElixirMicroserviceBoilerplateWeb.ChannelCase do
+defmodule MyNewAppWeb.ChannelCase do
   @moduledoc false
   use ExUnit.CaseTemplate
 
@@ -8,15 +8,15 @@ defmodule ElixirMicroserviceBoilerplateWeb.ChannelCase do
     quote do
       use Phoenix.ChannelTest
 
-      @endpoint ElixirMicroserviceBoilerplateWeb.Endpoint
+      @endpoint MyNewAppWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(ElixirMicroserviceBoilerplate.Repo)
+    :ok = Sandbox.checkout(MyNewApp.Repo)
 
     unless tags[:async] do
-      Sandbox.mode(ElixirMicroserviceBoilerplate.Repo, {:shared, self()})
+      Sandbox.mode(MyNewApp.Repo, {:shared, self()})
     end
 
     :ok

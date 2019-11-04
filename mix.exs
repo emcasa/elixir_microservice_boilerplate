@@ -1,9 +1,9 @@
-defmodule ElixirMicroserviceBoilerplate.MixProject do
+defmodule MyNewApp.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :elixir_microservice_boilerplate,
+      app: :my_new_app,
       version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -16,7 +16,7 @@ defmodule ElixirMicroserviceBoilerplate.MixProject do
 
   def application do
     [
-      mod: {ElixirMicroserviceBoilerplate.Application, []},
+      mod: {MyNewApp.Application, []},
       extra_applications: [:lager, :runtime_tools, :sentry, :appsignal]
     ]
   end

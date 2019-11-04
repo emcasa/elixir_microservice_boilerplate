@@ -1,10 +1,10 @@
-defmodule ElixirMicroserviceBoilerplateWeb.ErrorHelpers do
+defmodule MyNewAppWeb.ErrorHelpers do
   @moduledoc false
   def translate_error({msg, opts}) do
     if count = opts[:count] do
-      Gettext.dngettext(ElixirMicroserviceBoilerplateWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(MyNewAppWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(ElixirMicroserviceBoilerplateWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(MyNewAppWeb.Gettext, "errors", msg, opts)
     end
   end
 end

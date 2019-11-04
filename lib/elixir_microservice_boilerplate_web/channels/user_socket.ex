@@ -1,4 +1,4 @@
-defmodule ElixirMicroserviceBoilerplateWeb.UserSocket do
+defmodule MyNewAppWeb.UserSocket do
   use Phoenix.Socket
 
   def connect(_params, socket, _connect_info) do

@@ -1,4 +1,4 @@
-defmodule ElixirMicroserviceBoilerplateWeb.SentryEventFilter do
+defmodule MyNewAppWeb.SentryEventFilter do
   @moduledoc """
   Module to ignore sentry events
   """
