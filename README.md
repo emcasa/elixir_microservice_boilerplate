@@ -1,19 +1,30 @@
 # ElixirMicroserviceBoilerplate
 
-To start your Phoenix server:
+This is a boilerplate project to create microservices in elixir
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server`
+It's pre-configured with some defaults like logging, error-handling and monitoring.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+It's intented to be a template rather than a fork.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+# Using
+	* Rename `ElixirMicroserviceBoilerplate` and `elixir_microservice_boilerplate`
+	* Check for env vars of services to fill in
 
-## Learn more
+# Build
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+	* `mix deps.get`
+	* `mix compile`
+
+# Test
+
+	* `mix test`
+
+# Run
+
+	* `mix ecto.setup`
+	* `iex -S mix phx.server`
+
+  * Install dependencies: `mix deps.get`
+  * Create and migrate database: `mix ecto.setup`
+  * Start the server: `mix phx.server`
+  * Check [`localhost:4000`](http://localhost:4000)
