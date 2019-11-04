@@ -1,5 +1,8 @@
 defmodule ElixirMicroserviceBoilerplate.DataCase do
+  @moduledoc false
   use ExUnit.CaseTemplate
+
+  alias Ecto.Adapters.SQL.Sandbox
 
   using do
     quote do
@@ -13,10 +16,10 @@ defmodule ElixirMicroserviceBoilerplate.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ElixirMicroserviceBoilerplate.Repo)
+    :ok = Sandbox.checkout(ElixirMicroserviceBoilerplate.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(ElixirMicroserviceBoilerplate.Repo, {:shared, self()})
+      Sandbox.mode(ElixirMicroserviceBoilerplate.Repo, {:shared, self()})
     end
 
     :ok
