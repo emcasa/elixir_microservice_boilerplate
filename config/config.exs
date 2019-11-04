@@ -11,10 +11,9 @@ config :elixir_microservice_boilerplate, ElixirMicroserviceBoilerplateWeb.Endpoi
   instrumenters: [Appsignal.Phoenix.Instrumenter]
 
 config :logger, :console,
-	backends: [:console],
+  backends: [:console],
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
-
 
 config :phoenix, :json_library, Jason
 

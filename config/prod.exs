@@ -5,7 +5,7 @@ config :elixir_microservice_boilerplate, ElixirMicroserviceBoilerplateWeb.Endpoi
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 config :logger,
-	level: :info,
+  level: :info,
   backends: [:console, LoggerLagerBackend],
   handle_otp_reports: false,
   utc_log: true
