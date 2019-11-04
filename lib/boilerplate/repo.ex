@@ -1,5 +1,5 @@
-defmodule MyNewApp.Repo do
+defmodule Boilerplate.Repo do
   use Ecto.Repo,
-    otp_app: :my_new_app,
+    otp_app: :boilerplate,
     adapter: Ecto.Adapters.Postgres
 end

@@ -9,7 +9,7 @@ jobs:
       - image: circleci/postgres:11.2-alpine
         environment:
           POSTGRES_USER: postgres
-          POSTGRES_DB: my_new_app_test
+          POSTGRES_DB: boilerplate_test
           POSTGRES_PASSWORD:
 
     working_directory: ~/app

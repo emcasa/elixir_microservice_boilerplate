@@ -1,4 +1,4 @@
-defmodule MyNewApp.DataCase do
+defmodule Boilerplate.DataCase do
   @moduledoc false
   use ExUnit.CaseTemplate
 
@@ -6,20 +6,20 @@ defmodule MyNewApp.DataCase do
 
   using do
     quote do
-      alias MyNewApp.Repo
+      alias Boilerplate.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import MyNewApp.DataCase
+      import Boilerplate.DataCase
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(MyNewApp.Repo)
+    :ok = Sandbox.checkout(Boilerplate.Repo)
 
     unless tags[:async] do
-      Sandbox.mode(MyNewApp.Repo, {:shared, self()})
+      Sandbox.mode(Boilerplate.Repo, {:shared, self()})
     end
 
     :ok

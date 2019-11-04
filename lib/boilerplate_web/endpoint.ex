@@ -1,15 +1,15 @@
-defmodule MyNewAppWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :my_new_app
+defmodule BoilerplateWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :boilerplate
   use Sentry.Phoenix.Endpoint
   use Appsignal.Phoenix
 
-  socket "/socket", MyNewAppWeb.UserSocket,
+  socket "/socket", BoilerplateWeb.UserSocket,
     websocket: true,
     longpoll: false
 
   plug Plug.Static,
     at: "/",
-    from: :my_new_app,
+    from: :boilerplate,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
@@ -30,8 +30,8 @@ defmodule MyNewAppWeb.Endpoint do
 
   plug Plug.Session,
     store: :cookie,
-    key: "_my_new_app_key",
+    key: "_boilerplate_key",
     signing_salt: "v0qo5hfH"
 
-  plug MyNewAppWeb.Router
+  plug BoilerplateWeb.Router
 end

@@ -1,13 +1,13 @@
 use Mix.Config
 
-config :my_new_app, MyNewApp.Repo,
+config :boilerplate, Boilerplate.Repo,
   username: "postgres",
   password: "postgres",
-  database: "my_new_app_test",
+  database: "boilerplate_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
-config :my_new_app, MyNewAppWeb.Endpoint,
+config :boilerplate, BoilerplateWeb.Endpoint,
   http: [port: 4002],
   server: false
 

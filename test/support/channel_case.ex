@@ -1,4 +1,4 @@
-defmodule MyNewAppWeb.ChannelCase do
+defmodule BoilerplateWeb.ChannelCase do
   @moduledoc false
   use ExUnit.CaseTemplate
 
@@ -8,15 +8,15 @@ defmodule MyNewAppWeb.ChannelCase do
     quote do
       use Phoenix.ChannelTest
 
-      @endpoint MyNewAppWeb.Endpoint
+      @endpoint BoilerplateWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(MyNewApp.Repo)
+    :ok = Sandbox.checkout(Boilerplate.Repo)
 
     unless tags[:async] do
-      Sandbox.mode(MyNewApp.Repo, {:shared, self()})
+      Sandbox.mode(Boilerplate.Repo, {:shared, self()})
     end
 
     :ok

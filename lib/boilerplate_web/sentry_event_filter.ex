@@ -1,4 +1,4 @@
-defmodule MyNewAppWeb.SentryEventFilter do
+defmodule BoilerplateWeb.SentryEventFilter do
   @moduledoc """
   Module to ignore sentry events
   """

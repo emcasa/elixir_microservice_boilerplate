@@ -1,4 +1,4 @@
-defmodule MyNewAppWeb.UserSocket do
+defmodule BoilerplateWeb.UserSocket do
   use Phoenix.Socket
 
   def connect(_params, socket, _connect_info) do

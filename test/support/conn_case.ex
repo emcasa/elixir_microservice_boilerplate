@@ -1,4 +1,4 @@
-defmodule MyNewAppWeb.ConnCase do
+defmodule BoilerplateWeb.ConnCase do
   @moduledoc false
   use ExUnit.CaseTemplate
 
@@ -7,17 +7,17 @@ defmodule MyNewAppWeb.ConnCase do
   using do
     quote do
       use Phoenix.ConnTest
-      alias MyNewAppWeb.Router.Helpers, as: Routes
+      alias BoilerplateWeb.Router.Helpers, as: Routes
 
-      @endpoint MyNewAppWeb.Endpoint
+      @endpoint BoilerplateWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(MyNewApp.Repo)
+    :ok = Sandbox.checkout(Boilerplate.Repo)
 
     unless tags[:async] do
-      Sandbox.mode(MyNewApp.Repo, {:shared, self()})
+      Sandbox.mode(Boilerplate.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}

@@ -1,12 +1,12 @@
-defmodule MyNewAppWeb.Router do
-  use MyNewAppWeb, :router
+defmodule BoilerplateWeb.Router do
+  use BoilerplateWeb, :router
   use Sentry.Plug
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  scope "/api", MyNewAppWeb do
+  scope "/api", BoilerplateWeb do
     pipe_through :api
   end
 end

@@ -12,7 +12,7 @@ erl_crash.dump
 
 *.ez
 
-my_new_app-*.tar
+boilerplate-*.tar
 
 /priv/static/
 /tmp/

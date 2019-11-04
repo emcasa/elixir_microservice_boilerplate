@@ -1,4 +1,4 @@
-# MyNewApp
+# Boilerplate
 
 This is a boilerplate project to create microservices in elixir
 
@@ -8,7 +8,7 @@ It's intented to be a template rather than for forking.
 
 # Using
 
-  - Rename `MyNewApp` and `my_new_app`
+  - Rename `Boilerplate` and `boilerplate`
   - Check for env vars of services to fill in
 
 # Build

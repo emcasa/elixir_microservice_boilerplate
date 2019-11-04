@@ -1,3 +1,3 @@
-defmodule MyNewApp.Factory do
-  use ExMachina.Ecto, repo: MyNewApp.Repo
+defmodule Boilerplate.Factory do
+  use ExMachina.Ecto, repo: Boilerplate.Repo
 end
