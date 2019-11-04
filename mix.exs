@@ -46,7 +46,13 @@ defmodule ElixirMicroserviceBoilerplate.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      "git.hook": &git_hook/1
     ]
+  end
+
+  defp git_hook(_) do
+    Mix.shell().cmd("cp priv/git/pre-commit .git/hooks/pre-commit")
+    Mix.shell().cmd("chmod +x .git/hooks/pre-commit")
   end
 end
