@@ -10,6 +10,7 @@ It's intented to be a template rather than for forking.
 
   - Rename `Boilerplate` and `boilerplate`
   - Check for env vars of services to fill in
+  - generate and replace `config/config.exs` `secret_key_base` (e.g.: `:crypto.strong_rand_bytes(64) |> Base.encode64 |> binary_part(0, 64)`)
 
 # Build
 
@@ -25,3 +26,7 @@ It's intented to be a template rather than for forking.
   - `mix ecto.setup`
   - `iex -S mix phx.server`
   - Check [`localhost:4001`](http://localhost:4001)
+
+# Docker
+  - `docker-compose build`
+  - `docker-compose up`
