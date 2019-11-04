@@ -20,7 +20,7 @@ defmodule ElixirMicroserviceBoilerplate.MixProject do
   def application do
     [
       mod: {ElixirMicroserviceBoilerplate.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :sentry]
     ]
   end
 
@@ -40,7 +40,8 @@ defmodule ElixirMicroserviceBoilerplate.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:sentry, "~> 7.0"},
     ]
   end
 

@@ -1,5 +1,6 @@
 defmodule ElixirMicroserviceBoilerplateWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :elixir_microservice_boilerplate
+  use Sentry.Phoenix.Endpoint
 
   socket "/socket", ElixirMicroserviceBoilerplateWeb.UserSocket,
     websocket: true,

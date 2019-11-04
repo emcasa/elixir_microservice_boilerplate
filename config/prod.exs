@@ -16,6 +16,10 @@ config :elixir_microservice_boilerplate, ElixirMicroserviceBoilerplateWeb.Endpoi
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :sentry,
+  filter: ElixirMicroserviceBoilerplateWeb.SentryEventFilter,
+  dsn: System.get_env("SENTRY_DSN")
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

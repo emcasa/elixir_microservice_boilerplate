@@ -1,5 +1,6 @@
 defmodule ElixirMicroserviceBoilerplateWeb.Router do
   use ElixirMicroserviceBoilerplateWeb, :router
+  use Sentry.Plug
 
   pipeline :api do
     plug :accepts, ["json"]
