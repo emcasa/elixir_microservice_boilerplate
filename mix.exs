@@ -12,14 +12,15 @@ defmodule Boilerplate.MixProject do
       aliases: aliases(),
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test]
+      preferred_cli_env: [coveralls: :test],
+      releases: releases()
     ]
   end
 
   def application do
     [
       mod: {Boilerplate.Application, []},
-      extra_applications: [:lager, :runtime_tools, :sentry, :appsignal]
+      extra_applications: [:lager, :runtime_tools, :sentry, :appsignal, :inets]
     ]
   end
 
@@ -39,6 +40,7 @@ defmodule Boilerplate.MixProject do
       {:sentry, "~> 7.0"},
       {:lager_humio_backend, "~> 1.2"},
       {:lager, "~>  3.8", override: true},
+      {:logger_lager_backend, "~> 0.2"},
       {:appsignal, "~> 1.11"},
       {:credo, "~> 1.1", only: [:dev, :test], runtime: false},
       {:ex_machina, "~> 2.3", only: :test},
@@ -79,5 +81,20 @@ defmodule Boilerplate.MixProject do
     Mix.shell().info(
       "Use one of compose subcommands: server, #{Enum.join(@compose_commands, ", ")}"
     )
+  end
+
+  defp releases do
+    [
+      boilerplate: [
+        include_executables_for: [:unix],
+        applications: [
+          runtime_tools: :permanent,
+          lager: :permanent,
+          sentry: :permanent,
+          appsignal: :permanent,
+          inets: :permanent
+        ]
+      ]
+    ]
   end
 end

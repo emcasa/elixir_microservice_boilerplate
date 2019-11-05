@@ -1,8 +1,6 @@
-use Mix.Config
+import Config
 
-config :boilerplate, BoilerplateWeb.Endpoint,
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+config :boilerplate, BoilerplateWeb.Endpoint, url: [host: "example.com", port: 80]
 
 config :logger,
   level: :info,
@@ -30,5 +28,3 @@ config :appsignal, :config,
   active: true,
   env: System.get_env("APPSIGNAL_APP_ENV"),
   push_api_key: System.get_env("APPSIGNAL_PUSH_API_KEY")
-
-import_config "prod.secret.exs"

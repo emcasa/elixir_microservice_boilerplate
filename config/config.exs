@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :boilerplate,
   ecto_repos: [Boilerplate.Repo]

@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :boilerplate, Boilerplate.Repo,
   username: System.get_env("POSTGRES_USERNAME") || "postgres",
