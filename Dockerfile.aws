@@ -1,0 +1,51 @@
+FROM elixir:1.9.2
+ARG BUILD_DATE
+ARG VCS_REF
+LABEL maintainer="EmCasa <dev@emcasa.com>" \
+      org.opencontainers.image.title="Boilerplate repository for EmCasa microservices." \
+      org.opencontainers.image.description="Boilerplate repository for EmCasa microservices." \
+      org.opencontainers.image.authors="EmCasa <dev@emcasa.com>" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.source="https://github.com/emcasa/elixir_microservice_boilerplate" \
+      org.opencontainers.image.revision=$VCS_REF \
+      org.opencontainers.image.created=$BUILD_DATE
+
+ENV PORT=4000
+
+ARG DB_USER
+ENV DB_USER=$DB_USER
+
+ARG DB_PASSWORD
+ENV DB_PASSWORD=$DB_PASSWORD
+
+ARG DB_HOST
+ENV DB_HOST=$DB_HOST
+
+ARG DB_INSTANCE
+ENV DB_INSTANCE=$DB_INSTANCE
+
+ARG SECRET_KEY_BASE
+ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
+
+ARG GCP_CREDENTIALS
+ENV GCP_CREDENTIALS=$GCP_CREDENTIALS
+
+ARG AWS_ACCESS_KEY_ID
+ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+
+ARG AWS_SECRET_ACCESS_KEY
+ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+
+# elixir install deps
+RUN mix local.hex --force && mix local.rebar --force
+
+# app set workdir
+WORKDIR /opt/emcasa
+
+# app copy code
+COPY . /opt/emcasa
+
+# app expose server port
+EXPOSE 4000
+CMD /opt/emcasa/rel/boilerplate/bin/boilerplate eval "Boilerplate.ReleaseTasks.migrate()" && \
+    /opt/emcasa/rel/boilerplate/bin/boilerplate start
