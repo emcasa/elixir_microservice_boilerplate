@@ -79,10 +79,17 @@ All env vars in `config/releases.exs` are read on runtime.
 
 #### Database
 
-The database can be configured with `DB_*` vars or by selecting an existing rds instance under Configurations > Database in your eb environment's dashboard.
+The database can be configured with `DB_*` vars or by selecting an existing rds instance under `Configurations > Database` in your eb environment's dashboard.
 
 ### Configure build-time vars (CI)
 
-On CircleCI under Settings > Contexts, create contexts for your application's staging and production environments and configure the `build_release_production` and `build_release_staging` workflow steps in `.circleci/config.yml` to use them.
+On CircleCI under `Settings > Contexts`, create contexts for your application's staging and production environments and configure the `build_release_production` and `build_release_staging` workflow steps in `.circleci/config.yml` to use them.
 
 All build time configurations should go in there.
+
+### Configure AWS credentials on CircleCI
+
+This project's CI workflow uses eb-cli to deploy the application on beanstalk.
+For the `deploy_*` steps to work you need to configure aws credentials and region on CircleCI:
+
+In your **project**'s configuration on CircleCI under `Build Settings > Environment Variables` , set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_REGION`.
