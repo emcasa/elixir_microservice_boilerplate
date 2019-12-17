@@ -1,6 +1,7 @@
 import Config
 
-config :boilerplate, BoilerplateWeb.Endpoint, url: [host: "example.com", port: 80]
+config :boilerplate, BoilerplateWeb.Endpoint,
+  url: [host: System.get_env("HOST") || "example.com", port: 80]
 
 config :logger,
   level: :info,
@@ -23,6 +24,16 @@ config :lager,
       level: :info
     ]
   ]
+
+config :logger,
+  level: :info,
+  backends: [:console, LoggerLagerBackend],
+  handle_otp_reports: false,
+  utc_log: true
+
+config :sentry,
+  filter: BoilerplateWeb.SentryEventFilter,
+  dsn: System.get_env("SENTRY_DSN")
 
 config :appsignal, :config,
   active: true,
