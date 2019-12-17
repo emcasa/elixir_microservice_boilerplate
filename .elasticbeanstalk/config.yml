@@ -1,6 +1,3 @@
-branch-defaults:
-  release:
-    environment: Boilerplate-staging
 global:
   application_name: Boilerplate
   default_ec2_keyname: null
