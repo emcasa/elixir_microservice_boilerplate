@@ -1,5 +1,5 @@
-defmodule Renato.ReleaseTasks do
-  @app :renato
+defmodule Boilerplate.ReleaseTasks do
+  @app :boilerplate
 
   def migrate do
     for repo <- repos() do
