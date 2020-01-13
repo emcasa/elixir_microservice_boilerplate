@@ -1,64 +1,156 @@
-version: 2
+version: 2.1
+
+environments:
+  - &elixir
+    image: circleci/elixir:1.9.2
+  - &elixir-release
+    image: elixir:1.9.2
+  - &postgres
+    image: circleci/postgres:11.5-alpine-ram
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: boilerplate_test
+      POSTGRES_PASSWORD:
+  - &awsebcli
+    image: coxauto/aws-ebcli
+
+configurations:
+  - &env-staging
+    EB_ENV: Boilerplate-staging
+  - &env-production
+    EB_ENV: Boilerplate-production
+
+cache:
+  - &restore-mix
+    keys:
+      - -{{ .Environment.CACHE_VERSION }}-mix-cache-{{ checksum ".tool-versions" }}-{{ .Branch }}-{{ checksum "mix.lock" }}
+      - -{{ .Environment.CACHE_VERSION }}-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}-
+      - -{{ .Environment.CACHE_VERSION }}-mix-cache-{{ .Branch }}-
+      - -{{ .Environment.CACHE_VERSION }}-mix-cache-
+  - &restore-build
+    keys:
+      - -{{ .Environment.CACHE_VERSION }}-build-cache-{{ .Branch }}
+      - -{{ .Environment.CACHE_VERSION }}-build-cache-
+  - &cache-mix
+    key: -{{ .Environment.CACHE_VERSION }}-mix-cache-{{ checksum ".tool-versions" }}-{{ .Branch }}-{{ checksum "mix.lock" }}
+    paths: "deps"
+  - &cache-build
+    key: -{{ .Environment.CACHE_VERSION }}-build-cache-{{ .Branch }}
+    paths: "_build"
+
+aliases:
+  - &install-rebar
+    name: Install rebar
+    command: mix local.hex --force && mix local.rebar --force
+
 jobs:
   build:
     parallelism: 1
-    docker:
-      - image: circleci/elixir:1.9.2
-        environment:
-          MIX_ENV: test
-      - image: circleci/postgres:11.2-alpine
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: boilerplate_test
-          POSTGRES_PASSWORD:
-
     working_directory: ~/app
-
+    docker:
+      - *elixir
     steps:
       - checkout
-
-      - run: mix local.hex --force
-      - run: mix local.rebar --force
-
-      - restore_cache:
-          keys:
-            - -{{ .Environment.CACHE_VERSION }}-mix-cache-{{ checksum ".tool-versions" }}-{{ .Branch }}-{{ checksum "mix.lock" }}
-            - -{{ .Environment.CACHE_VERSION }}-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
-            - -{{ .Environment.CACHE_VERSION }}-mix-cache-{{ .Branch }}
-            - -{{ .Environment.CACHE_VERSION }}-mix-cache
-      - restore_cache:
-          keys:
-            - -{{ .Environment.CACHE_VERSION }}-build-cache-{{ .Branch }}
-            - -{{ .Environment.CACHE_VERSION }}-build-cache
+      - run: *install-rebar
+      - restore_cache: *restore-mix
+      - restore_cache:  *restore-build
       - run: mix deps.get
       - run: mix compile --warnings-as-errors --force
       - run: mix format --check-formatted --dry-run
-      - save_cache:
-          key: -{{ .Environment.CACHE_VERSION }}-mix-cache-{{ checksum ".tool-versions" }}-{{ .Branch }}-{{ checksum "mix.lock" }}
-          paths: "deps"
-      - save_cache:
-          key: -{{ .Environment.CACHE_VERSION }}-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
-          paths: "deps"
-      - save_cache:
-          key: -{{ .Environment.CACHE_VERSION }}-mix-cache-{{ .Branch }}
-          paths: "deps"
-      - save_cache:
-          key: -{{ .Environment.CACHE_VERSION }}-mix-cache
-          paths: "deps"
-      - save_cache:
-          key: -{{ .Environment.CACHE_VERSION }}-build-cache-{{ .Branch }}
-          paths: "_build"
-      - save_cache:
-          key: -{{ .Environment.CACHE_VERSION }}-build-cache
-          paths: "_build"
+      - save_cache: *cache-mix
+      - save_cache: *cache-build
+      - persist_to_workspace:
+          root: .
+          paths: .
 
+  test:
+    parallelism: 1
+    working_directory: ~/app
+    docker:
+      - *elixir
+      - *postgres
+    steps:
+      - attach_workspace:
+          at: ~/app
+      - run: *install-rebar
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
-
-      - run: mix do compile --warnings-as-errors, coveralls.json
-
+      - run: MIX_ENV=test mix coveralls.json
       - run: curl -s https://codecov.io/bash | bash
-
       - store_test_results:
           path: _build/test/lib/
+          paths: .
+
+  build_release: &build-release-job
+    parallelism: 1
+    working_directory: ~/app
+    docker:
+      - *elixir-release
+    steps:
+      - attach_workspace:
+          at: ~/app
+      - run: *install-rebar
+      - run: MIX_ENV=prod mix release
+      - run: mv _build/prod/rel/boilerplate _build/prod/rel/$EB_ENV
+      - persist_to_workspace:
+          root: _build/prod
+          paths:
+            - rel
+  build_release_staging:
+    <<: *build-release-job
+    environment: *env-staging
+  build_release_production:
+    <<: *build-release-job
+    environment: *env-production
+
+  deploy: &deploy-job
+    parallelism: 1
+    working_directory: ~/app
+    docker:
+      - *awsebcli
+    steps:
+      - attach_workspace:
+          at: ~/app
+      - run: mv -f Dockerfile.aws Dockerfile
+      - run: mv rel/$EB_ENV rel/boilerplate
+      - run: eb use $EB_ENV
+      - run: eb deploy
+  deploy_staging:
+    <<: *deploy-job
+    environment: *env-staging
+  deploy_production:
+    <<: *deploy-job
+    environment: *env-production
+
+workflows:
+  commit:
+    jobs:
+      - build
+      - build_release_production:
+          context: boilerplate-production
+          requires:
+            - build
+      - build_release_staging:
+          context: boilerplate-staging
+          requires:
+            - build
+      - test:
+          requires:
+            - build
+      - deploy_production_approval:
+          type: approval
+          requires:
+            - test
+            - build_release_production
+      - deploy_staging_approval:
+          type: approval
+          requires:
+            - test
+            - build_release_staging
+      - deploy_production:
+          requires:
+            - deploy_production_approval
+      - deploy_staging:
+          requires:
+            - deploy_staging_approval

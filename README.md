@@ -45,3 +45,51 @@ If you prefer, mix has some aliases for the common commands:
 * `mix compose up`: start all services.
 * `mix compose down`: stop all services.
 * `mix compose ps`: check `status` for all services.
+
+
+## Deploy
+
+This project's CircleCI workflow builds a release and then deploys it on beanstalk.
+
+### Configure beanstalk environments
+
+Configure your `.elasticbeanstalk/config.yml` with your application's name and change `EB_ENV` in `.circleci/config.yml` to your prod and staging environment's names.
+
+----
+
+To create a *new* environment use the following command. In case you haven't created an application yet do it first in the aws console.
+
+```
+eb create \
+  --region us-east-1 \
+  --database \
+  -db.engine postgres \
+  -db.i db.t2.small \
+  -db.size 10 \
+  --elb-type application \
+  --envvars PORT=4000,SECRET_KEY_BASE=some_secret
+```
+
+This command creates an rds instance and exposes the credentials on your eb environment. This project is set up to use this database, but you can omit `--database` and `-db` args and configure it manually.
+
+### Configure runtime vars (EB)
+
+All env vars in `config/releases.exs` are read on runtime.
+`PORT`, `SECRET_KEY_BASE`, database options and other runtime configs need to be set on the eb environment's "Software" configuration.
+
+#### Database
+
+The database can be configured with `DB_*` vars or by selecting an existing rds instance under `Configurations > Database` in your eb environment's dashboard.
+
+### Configure build-time vars (CI)
+
+On CircleCI under `Settings > Contexts`, create contexts for your application's staging and production environments and configure the `build_release_production` and `build_release_staging` workflow steps in `.circleci/config.yml` to use them.
+
+All build time configurations should go in there.
+
+### Configure AWS credentials on CircleCI
+
+This project's CI workflow uses eb-cli to deploy the application on beanstalk.
+For the `deploy_*` steps to work you need to configure aws credentials and region on CircleCI:
+
+In your **project**'s configuration on CircleCI under `Build Settings > Environment Variables` , set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_REGION`.
